@@ -26,6 +26,31 @@ export const metadata: Metadata = {
   description:
     "Accessible STEM robotics components with teacher-friendly documentation, guides, and lessons.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  icons: {
+    icon: [
+      {
+        url: "https://warobotics.education/wp-content/uploads/2024/05/cropped-IconLogoWARES-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
+      },
+      {
+        url: "https://warobotics.education/wp-content/uploads/2024/05/cropped-IconLogoWARES-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+    ],
+    apple: [
+      {
+        url: "https://warobotics.education/wp-content/uploads/2024/05/cropped-IconLogoWARES-180x180.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
+  },
+  other: {
+    "msapplication-TileImage":
+      "https://warobotics.education/wp-content/uploads/2024/05/cropped-IconLogoWARES-270x270.png",
+  },
   openGraph: {
     title: "WARES | STEM Robotics Documentation",
     description:
