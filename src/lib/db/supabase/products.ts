@@ -1,5 +1,4 @@
 import { createSupabaseAdminClient, createSupabaseServerClient } from "@/lib/supabase/server";
-import type { PostgrestFilterBuilder } from "@supabase/supabase-js";
 import type {
   Product,
   ProductSection,
@@ -16,10 +15,7 @@ import type {
   Model3d,
 } from "@/lib/db/types";
 
-function withPublished(
-  query: PostgrestFilterBuilder<unknown, unknown, unknown>,
-  publishedOnly?: boolean
-) {
+function withPublished(query: any, publishedOnly?: boolean) {
   if (publishedOnly) {
     return query.eq("published", true);
   }
@@ -201,10 +197,7 @@ export async function upsertProductSection(
   section: ProductSection
 ) {
   const supabase = createSupabaseAdminClient();
-  const { error } = await supabase.from("product_sections").upsert({
-    product_id: productId,
-    ...section,
-  });
+  const { error } = await supabase.from("product_sections").upsert(section);
   if (error) throw error;
 }
 

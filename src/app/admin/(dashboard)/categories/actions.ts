@@ -6,12 +6,12 @@ import type { Category } from "@/lib/db/types";
 import { requireAdmin } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
-export async function upsertCategoryAction(formData: FormData) {
+export async function upsertCategoryAction(formData: FormData): Promise<void> {
   await requireAdmin();
   const data = Object.fromEntries(formData.entries());
   const parsed = categorySchema.safeParse(data);
   if (!parsed.success) {
-    return { ok: false, error: "Invalid category." };
+    throw new Error("Invalid category.");
   }
   const category: Category = {
     id: data.id?.toString() ?? crypto.randomUUID(),
@@ -20,12 +20,10 @@ export async function upsertCategoryAction(formData: FormData) {
   };
   await productRepository.upsertCategory(category);
   revalidatePath("/admin/categories");
-  return { ok: true };
 }
 
-export async function deleteCategoryAction(id: string) {
+export async function deleteCategoryAction(id: string): Promise<void> {
   await requireAdmin();
   await productRepository.deleteCategory(id);
   revalidatePath("/admin/categories");
-  return { ok: true };
 }

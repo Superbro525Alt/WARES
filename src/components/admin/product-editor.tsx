@@ -56,12 +56,12 @@ export function ProductEditor({ productData, categories, tags, guides, lessons }
   const [guideIds, setGuideIds] = useState<string[]>(productData.guides.map((guide) => guide.id));
   const [lessonIds, setLessonIds] = useState<string[]>(productData.lessons.map((lesson) => lesson.id));
 
-  const [faqs, setFaqs] = useState<SortableItem<Faq>[]>(withClientId(productData.faqs));
-  const [youtube, setYoutube] = useState<SortableItem<MediaYoutube>[]>(withClientId(productData.youtube));
-  const [images, setImages] = useState<SortableItem<MediaImage>[]>(withClientId(productData.images));
-  const [pdfs, setPdfs] = useState<SortableItem<DownloadPdf>[]>(withClientId(productData.pdfs));
-  const [cad, setCad] = useState<SortableItem<CadEmbed>[]>(withClientId(productData.cad));
-  const [models, setModels] = useState<SortableItem<Model3d>[]>(withClientId(productData.models));
+  const [faqs, setFaqs] = useState<SortableItem<Partial<Faq>>[]>(withClientId(productData.faqs));
+  const [youtube, setYoutube] = useState<SortableItem<Partial<MediaYoutube>>[]>(withClientId(productData.youtube));
+  const [images, setImages] = useState<SortableItem<Partial<MediaImage>>[]>(withClientId(productData.images));
+  const [pdfs, setPdfs] = useState<SortableItem<Partial<DownloadPdf>>[]>(withClientId(productData.pdfs));
+  const [cad, setCad] = useState<SortableItem<Partial<CadEmbed>>[]>(withClientId(productData.cad));
+  const [models, setModels] = useState<SortableItem<Partial<Model3d>>[]>(withClientId(productData.models));
 
   const removed = useRef({
     faqs: [] as string[],

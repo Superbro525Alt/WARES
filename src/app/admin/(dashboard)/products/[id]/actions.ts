@@ -23,7 +23,11 @@ export async function saveProduct(payload: string) {
     if (sectionParsed.success) {
       await productRepository.upsertSection(product.id, {
         product_id: product.id,
-        ...sectionParsed.data,
+        overview_md: sectionParsed.data.overview_md ?? null,
+        quickstart_md: sectionParsed.data.quickstart_md ?? null,
+        intended_use_md: sectionParsed.data.intended_use_md ?? null,
+        good_practice_md: sectionParsed.data.good_practice_md ?? null,
+        bad_practice_md: sectionParsed.data.bad_practice_md ?? null,
       });
     }
 

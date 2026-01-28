@@ -5,12 +5,12 @@ import { productRepository } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
-export async function createProduct(formData: FormData) {
+export async function createProduct(formData: FormData): Promise<void> {
   await requireAdmin();
   const data = Object.fromEntries(formData.entries());
   const parsed = productSchema.safeParse(data);
   if (!parsed.success) {
-    return { ok: false, error: "Invalid product data." };
+    throw new Error("Invalid product data.");
   }
   const product = await productRepository.upsert({
     ...parsed.data,
@@ -25,12 +25,10 @@ export async function createProduct(formData: FormData) {
     bad_practice_md: null,
   });
   revalidatePath("/admin/products");
-  return { ok: true, id: product.id };
 }
 
-export async function deleteProductAction(id: string) {
+export async function deleteProductAction(id: string): Promise<void> {
   await requireAdmin();
   await productRepository.delete(id);
   revalidatePath("/admin/products");
-  return { ok: true };
 }

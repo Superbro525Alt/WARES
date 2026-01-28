@@ -5,7 +5,7 @@ import { lessonRepository } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
-export async function createLesson(formData: FormData) {
+export async function createLesson(formData: FormData): Promise<void> {
   await requireAdmin();
   const data = Object.fromEntries(formData.entries());
   const parsed = lessonSchema.safeParse({
@@ -15,7 +15,7 @@ export async function createLesson(formData: FormData) {
     product_ids: [],
   });
   if (!parsed.success) {
-    return { ok: false, error: "Invalid lesson." };
+    throw new Error("Invalid lesson.");
   }
   const lesson = await lessonRepository.upsert({
     ...parsed.data,
@@ -24,14 +24,12 @@ export async function createLesson(formData: FormData) {
     prerequisites_json: parsed.data.prerequisites,
   });
   revalidatePath("/admin/lessons");
-  return { ok: true, id: lesson.id };
 }
 
-export async function deleteLessonAction(id: string) {
+export async function deleteLessonAction(id: string): Promise<void> {
   await requireAdmin();
   await lessonRepository.delete(id);
   revalidatePath("/admin/lessons");
-  return { ok: true };
 }
 
 export async function saveLesson(payload: string) {

@@ -5,7 +5,7 @@ import { guideRepository } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 
-export async function createGuide(formData: FormData) {
+export async function createGuide(formData: FormData): Promise<void> {
   await requireAdmin();
   const data = Object.fromEntries(formData.entries());
   const parsed = guideSchema.safeParse({
@@ -13,21 +13,19 @@ export async function createGuide(formData: FormData) {
     product_ids: [],
   });
   if (!parsed.success) {
-    return { ok: false, error: "Invalid guide." };
+    throw new Error("Invalid guide.");
   }
   const guide = await guideRepository.upsert({
     ...parsed.data,
     content_md: parsed.data.content_md ?? null,
   });
   revalidatePath("/admin/guides");
-  return { ok: true, id: guide.id };
 }
 
-export async function deleteGuideAction(id: string) {
+export async function deleteGuideAction(id: string): Promise<void> {
   await requireAdmin();
   await guideRepository.delete(id);
   revalidatePath("/admin/guides");
-  return { ok: true };
 }
 
 export async function saveGuide(payload: string) {
