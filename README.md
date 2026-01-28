@@ -1,4 +1,4 @@
-# WARES Documentation + Education Portal
+﻿# WARES Documentation + Education Portal
 
 Production-ready documentation and education portal for WARES (Perth, Western Australia). Built with Next.js App Router, Supabase, Tailwind, shadcn/ui, and Framer Motion.
 
@@ -20,7 +20,7 @@ pnpm install
 ### 2) Create Supabase project
 - Create a new Supabase project.
 - Copy the project URL and anon key.
-- Create a service role key for admin invites.
+- Create a service role key for admin invites and server actions.
 
 ### 3) Configure env
 Create `.env.local` and set:
@@ -82,10 +82,14 @@ pnpm dev
 ```
 Visit `http://localhost:3000`.
 
-## Deployment (Vercel)
-- Set the env vars in Vercel.
-- Ensure Supabase project allows connections from Vercel.
-- Deploy as a Next.js app.
+## Deployment (Vercel Git Integration)
+- Connect the GitHub repo in Vercel.
+- Add env vars in Vercel:
+  - `NEXT_PUBLIC_SUPABASE_URL`
+  - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+  - `NEXT_PUBLIC_SITE_URL`
+  - `SUPABASE_SERVICE_ROLE_KEY`
+- Deploy. Vercel will build and deploy on every push to `main`.
 
 ## Data layer
 All DB access is abstracted behind a repository layer in `src/lib/db`. UI code should import only from `src/lib/db/index.ts`.
