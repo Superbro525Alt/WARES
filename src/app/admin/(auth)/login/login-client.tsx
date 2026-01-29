@@ -62,7 +62,6 @@ export default function AdminLoginClient() {
                 setLoading(false);
                 return;
               }
-              setLoading(false);
               router.push("/admin");
               router.refresh();
               return;
@@ -79,7 +78,6 @@ export default function AdminLoginClient() {
             }
             setMessage("Account created. You will receive access once an admin approves you.");
             setShowUnauthorized(true);
-            setLoading(false);
           }}
         >
           <Input
