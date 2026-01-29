@@ -36,7 +36,7 @@ export default async function HomePage() {
             </p>
             <div className="flex flex-wrap gap-3">
               <Button asChild size="lg">
-                <a href="https://warobotics.education/shop/">Browse Products</a>
+                <a href="/products">Browse Product Information</a>
               </Button>
               <Button asChild size="lg" variant="outline">
                 <Link href="/teacher-start-here">Teacher Start Here</Link>
