@@ -48,17 +48,17 @@ function renderCallout(text: string, children: React.ReactNode) {
   return (
     <div
       className={cn(
-        "rounded-xl border px-3.5 py-2.5 text-sm shadow-sm",
+        "rounded-xl border-l-4 border-l-primary bg-muted/40 px-4 py-3 text-sm",
         config.className
       )}
     >
       <div className="flex items-center gap-2">
-        <div className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-white/70">
-          <Icon className="h-3.5 w-3.5" />
+        <div className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-background">
+          <Icon className="h-3.5 w-3.5 text-primary" />
         </div>
         <p className="text-xs font-semibold uppercase tracking-wide">{config.label}</p>
       </div>
-      <div className="prose prose-sm mt-1.5 max-w-none text-inherit leading-relaxed">
+      <div className="prose prose-sm mt-2 max-w-none text-inherit leading-relaxed">
         {cleaned ? <p>{cleaned}</p> : children}
       </div>
     </div>
@@ -74,7 +74,7 @@ export function MarkdownRenderer({
 }) {
   const normalized = (content ?? "").replace(/\\n/g, "\n");
   return (
-    <div className={cn("prose prose-slate max-w-none", className)}>
+    <div className={cn("prose prose-slate max-w-none break-words prose-pre:overflow-x-auto", className)}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkBreaks]}
         rehypePlugins={[rehypeRaw]}
@@ -96,7 +96,7 @@ export function MarkdownRenderer({
               return (
                 <blockquote
                   {...props}
-                  className="border-l-4 border-primary/40 bg-muted/40 px-4 py-3"
+                  className="rounded-lg border-l-4 border-primary/40 bg-muted/30 px-4 py-3 text-sm text-muted-foreground"
                 >
                   {children}
                 </blockquote>

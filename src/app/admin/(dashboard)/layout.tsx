@@ -41,7 +41,29 @@ export default async function AdminLayout({
             ))}
           </nav>
         </aside>
-        <div className="flex-1">{children}</div>
+        <div className="flex-1 space-y-6">
+          <div className="rounded-2xl border border-border/60 bg-background p-4 md:hidden">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-xs text-muted-foreground">Admin</p>
+                <p className="text-sm font-semibold">{data.user?.email}</p>
+              </div>
+              <SignOutButton />
+            </div>
+            <nav className="mt-4 grid grid-cols-2 gap-2 text-sm">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-lg border border-border/60 px-3 py-2 text-center text-muted-foreground hover:bg-muted/40 hover:text-foreground"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+          {children}
+        </div>
       </div>
     </div>
   );
