@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { AnalyticsStub } from "@/components/shared/analytics-stub";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next"
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-sans",
@@ -79,6 +80,7 @@ export default function RootLayout({
           <SiteFooter />
         </div>
         <SpeedInsights />
+        <Analytics />
         <AnalyticsStub />
       </body>
     </html>
